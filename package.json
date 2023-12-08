@@ -6,7 +6,8 @@
   "author": "caio-couto <cavalcantecaio.couto@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js" 
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -22,6 +23,6 @@
     "express-async-errors": "^3.1.1",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.14",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.2.29"
   }
 }
