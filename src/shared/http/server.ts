@@ -1,35 +1,13 @@
-import express, { NextFunction, Request, Response } from "express";
-import cors from "cors";
-import routes from "./routes";
-import AppError from "@shared/erros/AppError";
-
-const app = express();
+import "reflect-metadata";
+import { app } from "./app";
+import { dataSource } from "../typeorm";
 
 const PORT: number = 8080;
 
-app.use(cors());
-app.use(express.json());
-app.use(routes);
-app.use((error: Error, req: Request, res: Response, next: NextFunction) =>
+dataSource.initialize().then(() => 
 {
-    console.log(error.stack);
-    if (error instanceof AppError)
+    const server = app.listen(PORT, () => 
     {
-        return res.status(error.statusCode).json(
-        {
-            status: "error",
-            message: error.message,
-        });
-    }
-
-    return res.status(500).json(
-    {
-        status: "error",
-        message: "Internal server error."
+        console.log(`Server started on port ${PORT}!`);
     });
-});
-
-app.listen(PORT, () => 
-{
-    console.log(`Server started on port ${PORT}!`);
 });
