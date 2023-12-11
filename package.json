@@ -29,7 +29,7 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.14",
     "tsyringe": "^4.8.0",
-    "typeorm": "^0.2.29",
+    "typeorm": "^0.3.17",
     "uuid": "^9.0.1"
   }
 }
