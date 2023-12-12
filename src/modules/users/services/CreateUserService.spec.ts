@@ -2,17 +2,19 @@ import "reflect-metadata";
 import CreateUserService from "./CreateUserService";
 import FakeUsersRepository from "../domain/repositories/fakes/FakeUserRepository";
 import AppError from "@shared/erros/AppError";
+import FakeHashProvider from "../providers/HashProvider/fakes/FakeHashProvider";
 
-let fakeUsersRepository: FakeUsersRepository;
 let createUser: CreateUserService;
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
 
 describe("CreateUser", () =>
 {
     beforeEach(() => 
     {
         fakeUsersRepository = new FakeUsersRepository();
-
-        createUser = new CreateUserService(fakeUsersRepository);
+        fakeHashProvider = new FakeHashProvider();
+        createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
     });
 
     it("shoud be a able to create a new user", async () =>

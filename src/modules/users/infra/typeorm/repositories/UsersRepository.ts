@@ -38,6 +38,16 @@ class UsersRepository implements IUserRepository
         return user;
     }
 
+    public async findById(id: string): Promise<IUser | null> 
+    {
+        const user = await this.ormRepository.findOneBy(
+        {
+            id
+        });
+
+        return user;
+    }
+
     public async findByName(name: string): Promise<User | null>
     {
         const user = await this.ormRepository.findOneBy(
