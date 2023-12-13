@@ -16,6 +16,8 @@ class FakeUsersRepository implements IUserRepository
         user.name = name;
         user.email = email;
         user.password = password;
+        user.created_at = new Date(Date.now());
+        user.updated_at = new Date(Date.now());
 
         this.users.push(user);
 
@@ -53,6 +55,11 @@ class FakeUsersRepository implements IUserRepository
         const user = this.users.find((user) => user.email === email);
         return user || null;
     }
+
+    public async delete(id: string): Promise<void>
+    {
+        this.users = this.users.filter((user) => user.id != id);
+    } 
 }
 
 export default FakeUsersRepository;

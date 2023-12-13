@@ -2,14 +2,14 @@ import { IDateProvider } from "../models/IDateProvider";
 
 class FakeDateProvider implements IDateProvider
 {
-    public addHours(date: number | Date, amount: number): Date 
+    public addHours(date: Date, amount: number): Date 
     {
-        return new Date(date);
+        return new Date(date.setHours(date.getHours() + amount));
     }
 
-    public isAfter(date: number | Date, dateToCompare: Date): Boolean 
+    public isAfter(date: Date, dateToCompare: Date): Boolean 
     {
-        return new Date(date) === dateToCompare
+        return new Date(date).getTime() >= dateToCompare.getTime();
     }
 }
 

@@ -21,7 +21,7 @@ class ResetPasswordService
         private hashProvider: IHashProvider,
     ) {}
 
-    public async execute({ token, password}: IResetPassword): Promise<void>
+    public async execute({ token, password }: IResetPassword): Promise<void>
     {
         const userToken = await this.userTokensRepository.findByToken(token);
 
@@ -40,13 +40,12 @@ class ResetPasswordService
         const tokenCreatedAt = userToken.created_at;
         const compareDate = this.dateProvider.addHours(tokenCreatedAt, 2);
 
-        if (this.dateProvider.isAfter(Date.now(), compareDate))
+        if (this.dateProvider.isAfter(new Date(Date.now()), compareDate))
         {
             throw new AppError("Token expired.");
         }
 
         user.password = await this.hashProvider.generateHash(password);
-
         await this.userRepository.save(user);
     }
 }

@@ -1,5 +1,5 @@
 export interface IDateProvider 
 {
-    addHours(date: Date | number, amount: number): Date;
-    isAfter(date: Date | number, dateToCompare: Date): Boolean;
+    addHours(date: Date, amount: number): Date;
+    isAfter(date: Date, dateToCompare: Date): Boolean;
 }
