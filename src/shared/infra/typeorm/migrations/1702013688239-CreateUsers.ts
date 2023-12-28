@@ -20,15 +20,27 @@ export class CreateUsers1702013688239 implements MigrationInterface
                 {
                     name: "name",
                     type: "varchar",
+                    length: "45",
                 },
                 {
                     name: "email",
                     type: "varchar",
+                    length: "45",
                     isUnique: true,
                 },
                 {
                     name: "password",
                     type: "varchar",
+                },
+                {
+                    name: "phone",
+                    type: "varchar",
+                    length: "14"
+                },
+                {
+                    name: "is_verify",
+                    type: "boolean",
+                    default: false
                 },
                 {
                     name: "avatar",

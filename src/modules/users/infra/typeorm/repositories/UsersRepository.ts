@@ -15,9 +15,9 @@ class UsersRepository implements IUserRepository
         this.ormRepository = dataSource.getRepository(User);
     }
 
-    public async create({ name, email, password }: ICreateUser): Promise<User>
+    public async create({ name, email, password, phone }: ICreateUser): Promise<User>
     {
-        const user = this.ormRepository.create({ name, email, password });
+        const user = this.ormRepository.create({ name, email, password, phone });
 
         await this.ormRepository.save(user);
 

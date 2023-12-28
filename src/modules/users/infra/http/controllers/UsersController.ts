@@ -8,9 +8,9 @@ import ListUsersService from "@modules/users/services/ListUsersService";
 
 class UsersController 
 {
-    public async index(_req: Request, res: Response): Promise<Response>
+    public async index(req: Request, res: Response): Promise<Response>
     {
-        const listUsers = container.resolve(ListUsersService)
+        const listUsers = container.resolve(ListUsersService);
 
         const users = await listUsers.execute();
 
@@ -19,7 +19,7 @@ class UsersController
 
     public async create(req: Request, res: Response): Promise<Response>
     {
-        const { name, email, password } = req.body;
+        const { name, email, password, phone } = req.body;
 
         const createUser = container.resolve(CreateUserService);
 
@@ -27,7 +27,8 @@ class UsersController
         {
             name,
             email,
-            password
+            password,
+            phone
         }); 
 
         return res.json(user);

@@ -1,13 +1,13 @@
 import { inject, injectable } from "tsyringe";
 import { IUserRepository } from "../domain/repositories/IUserRepository";
 import { IUserTokensRepository } from "../domain/repositories/IUserTokensRepository";
-import { ISendForgotPasswordEmail } from "../domain/models/ISendForgotPassordEmail";
 import { ISendEmailProvider } from "../providers/SendEmailProvider/models/ISendEmailProvider";
 import AppError from "@shared/erros/AppError";
 import path from "path";
+import { ISendConfirmEmail } from "../domain/models/ISendConfirmEmail";
 
 @injectable()
-class SendForgotPasswordEmailService 
+class SendConfirmEmailService 
 {
     constructor(
         @inject("UsersRepository")
@@ -18,7 +18,7 @@ class SendForgotPasswordEmailService
         private sendEmailProvider: ISendEmailProvider,
     ) {}
 
-    public async execute({ email }: ISendForgotPasswordEmail): Promise<void>
+    public async execute({ email }: ISendConfirmEmail): Promise<void>
     {
         const user = await this.usersRepository.findByEmail(email);
 
@@ -29,7 +29,7 @@ class SendForgotPasswordEmailService
 
         const { token } = await this.userTokensRepository.generate(user.id);
 
-        const forgotPasswordTemplate = path.resolve(__dirname, "..", "views", "forgot_password.hbs");
+        const confirmEmailTemplate = path.resolve(__dirname, "..", "views", "confirm_email.hbs");
 
         await this.sendEmailProvider.sendMail(
         {
@@ -38,18 +38,18 @@ class SendForgotPasswordEmailService
                 name: user.name,
                 email: user.email,
             },
-            subject: "[Wise] Recuperação de senha",
+            subject: "[Wise] Confirmação de email",
             templateData:
             {
-                file: forgotPasswordTemplate,
+                file: confirmEmailTemplate,
                 variables:
                 {
                     name: user.name,
-                    link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`
+                    link: `${process.env.APP_WEB_URL}/confirm_email?token=${token}`
                 }
             }
         });
     }
 }
 
-export default SendForgotPasswordEmailService;
+export default SendConfirmEmailService;

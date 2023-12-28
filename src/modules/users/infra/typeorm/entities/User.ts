@@ -14,6 +14,15 @@ class User implements IUser
     email: string;
 
     @Column()
+    avatar: string;  
+
+    @Column()
+    phone: string;
+    
+    @Column("boolean")
+    is_verify: boolean;  
+
+    @Column()
     password: string;
 
     @CreateDateColumn()
